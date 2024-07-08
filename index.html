@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Iframe Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+        }
+        .frame {
+            border: none;
+            width: 100%;
+            height: 800px;
+        }
+        .login-container {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container.active {
+            display: flex;
+        }
+        .login-container input {
+            margin: 5px;
+            padding: 10px;
+            width: 200px;
+        }
+        .login-container button {
+            padding: 10px;
+            width: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="login" class="login-container active">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <div id="error" style="color: red; display: none;">Invalid credentials</div>
+    </div>
+    <div id="content" class="container">
+        <iframe class="frame"
+            src="https://app.amplitude.com/analytics/share/embed/f13c9d1f-8faa-48e2-84a0-a47386e72f18"
+            frameBorder="0" width="100%" height="800">
+        </iframe>
+    </div>
+    <script>
+        const login = () => {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'piedmont_admin' && password === 'radai123') {
+                document.getElementById('login').classList.remove('active');
+                document.getElementById('content').style.display = 'block';
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        // Check if already logged in
+        window.onload = () => {
+            document.getElementById('content').style.display = 'none';
+            // Optionally, you can implement more secure session checking here
+        }
+    </script>
+</body>
+</html>
